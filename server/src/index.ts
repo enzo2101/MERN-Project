@@ -16,7 +16,7 @@ app.post("/decks", async (req: Request, res: Response) => {
 
 mongoose
   .connect(
-    "mongodb+srv://Mochye:EOPrzLqGmYj6rgVV@cluster0.firtit5.mongodb.net/?retryWrites=true&w=majority"
+    "yourURL"
   )
   .then(() => {
     console.log(`listening on port ${port}`);
