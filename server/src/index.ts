@@ -3,22 +3,23 @@ import express, { Request, Response } from "express";
 
 import Deck from "./models/Deck";
 
+import { config } from "dotenv";
+config();
+
 const app = express();
 const port = 5000;
 
+app.use(express.json());
+
 app.post("/decks", async (req: Request, res: Response) => {
   const newDeck = new Deck({
-    title: "my awesome flashcard deck",
+    title: req.body.title,
   });
   const createdDeck = await newDeck.save();
   res.json(createdDeck);
 });
 
-mongoose
-  .connect(
-    "yourURL"
-  )
-  .then(() => {
-    console.log(`listening on port ${port}`);
-    app.listen(port);
-  });
+mongoose.connect(process.env.MONGO_URL!).then(() => {
+  console.log(`listening on port ${port}`);
+  app.listen(port);
+});
