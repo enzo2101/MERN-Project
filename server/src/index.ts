@@ -17,6 +17,13 @@ app.use(
 );
 app.use(express.json());
 
+app.get("/decks", async (req: Request, res: Response) => {
+  //fetch all decks and send back to the User
+  const decks = await Deck.find();
+
+  res.json(decks);
+})
+
 app.post("/decks", async (req: Request, res: Response) => {
   const newDeck = new Deck({
     title: req.body.title,
