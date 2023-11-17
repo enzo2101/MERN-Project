@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import express, { Request, Response } from "express";
+import cors from "cors";
 
 import Deck from "./models/Deck";
 
@@ -9,6 +10,11 @@ config();
 const app = express();
 const port = 5000;
 
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(express.json());
 
 app.post("/decks", async (req: Request, res: Response) => {
