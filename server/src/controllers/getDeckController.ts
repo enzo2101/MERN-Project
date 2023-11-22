@@ -2,8 +2,7 @@ import Deck from "../models/Deck";
 import { Request, Response } from "express";
 
 export async function getDeckController(req: Request, res: Response) {
-  //fetch all decks and send back to the User
-  const decks = await Deck.find();
-
+  const { deckId } = req.params;
+  const decks = await Deck.findById(deckId);
   res.json(decks);
 }

@@ -2,13 +2,13 @@ import mongoose from "mongoose";
 import express, { Request, Response } from "express";
 import cors from "cors";
 
-import Deck from "./models/Deck";
-
 import { config } from "dotenv";
-import { getDeckController } from "./controllers/getDeckController";
+import { getDecksController } from "./controllers/getDecksController";
 import { createDeckController } from "./controllers/createDeckController";
 import { deleteDeckController } from "./controllers/deleteDeckController";
-import { createCarForDeckController } from "./controllers/createCardForDeckController";
+import { createCardForDeckController } from "./controllers/createCardForDeckController";
+import { getDeckController } from "./controllers/getDeckController";
+import { deleteCardOnDeckController } from "./controllers/deleteCardOnDeckController";
 config();
 
 const app = express();
@@ -21,13 +21,12 @@ app.use(
 );
 app.use(express.json());
 
-app.get("/decks", getDeckController);
-
+app.get("/decks", getDecksController);
 app.post("/decks", createDeckController);
-
 app.delete("/decks/:deckId", deleteDeckController);
-
-app.post("/decks/:deckId/cards", createCarForDeckController);
+app.get("/decks/:deckId", getDeckController)
+app.post("/decks/:deckId/cards", createCardForDeckController);
+app.delete("/decks/:deckId/cards/:index", deleteCardOnDeckController);
 
 mongoose.connect(process.env.MONGO_URL!).then(() => {
   console.log(`listening on port ${port}`);
